@@ -3,9 +3,9 @@ pipeline {
 	agent {
 	label 'test'
 }
-        tools{
-          maven 'm395'
-        }
+        //tools{
+          //maven 'm395'
+        //}
         stages{   
 		stage(clean){
 			steps{
