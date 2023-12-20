@@ -1,8 +1,8 @@
 pipeline {
 
-	agent {
-	label 'test'
-}
+	//agent {
+	//label 'test'
+	//}
         //tools{
           //maven 'm395'
         //}
