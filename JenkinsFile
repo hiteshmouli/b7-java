@@ -1,32 +1,24 @@
 pipeline {
+    agent any
 
-	//agent {
-	//label 'test'
-	//}
-        //tools{
-          //maven 'm395'
-        //}
-        stages{   
-		stage(clean){
-			steps{
-				    sh 'mvn clean'
-			}
-			
-		}
-		
-		stage(install){
-			steps{
-				    sh 'mvn install'
-			     
-			}
-			post{
-			    always{
-			        archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
-                                junit 'target/surefire-reports/*.xml'
-			    }
-			}
-		}
-	    }
-	}
+    stages {
+        stage('Build Image') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh 'docker build -t tom12:2.0 -f Dockerfile .'
+                }
+            }
+        }
 
-
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    // Log in to Docker Hub with credentials
+                    sh 'docker login -u hiteshmouli -p Jyothi@123 https://hub.docker.com/repository/hiteshmouli'
+                    sh 'docker push tom12:2.0'
+                }
+            }
+        }
+    }
+}
